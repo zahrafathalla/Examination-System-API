@@ -34,6 +34,7 @@ namespace ExaminationSystem.Service.CourseService
             if (instructor == null) return null;
 
             createdCourse.Instructor = instructor;
+
             return course;
         }
         public async Task<Course> EditCourseAsync(int id, Course course)
@@ -48,12 +49,16 @@ namespace ExaminationSystem.Service.CourseService
             existingCourse.CreditHours = course.CreditHours;
             existingCourse.InstructorId = course.InstructorId;
 
+            var instructor = await _unitOfWork.Repository<Instructor>().GetByIdAsync(existingCourse.InstructorId);
+            if (instructor == null) return null;
+            existingCourse.Instructor = instructor;
+
             courseRepo.Update(existingCourse);
             var result = await _unitOfWork.CompleteAsync();
 
             if (result <= 0) return null;
 
-            return course;
+            return existingCourse;
 
         }
         public async Task<bool> DeleteCourseAsync(int courseId)
@@ -67,7 +72,6 @@ namespace ExaminationSystem.Service.CourseService
             courseRepo.Delete(course);
             var result = await _unitOfWork.CompleteAsync();
             return result > 0;
-
 
         }
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KgFntvg3Yd3fgb40H9Bf26CBeEUWRhYLXVmrLP3t+rXJeusW5q2NDUGpj5aDyCkEyK/yUImoiqWBaCNaTA6Knw==",
+  "dgSpecHash": "w6ceRZ5SZnavr+E1P+7egM3qEI07sxHSNTkdVC0K2KU88wm2Owq+26QBaxZpHZpNRBflsmK165PUPVRmwlYITw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Repository\\ExaminationSystem.Repository.csproj",
+  "projectFilePath": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Repository\\ExaminationSystem.Repository.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\almagd\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\almagd\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

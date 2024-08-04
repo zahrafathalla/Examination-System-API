@@ -22,7 +22,7 @@ namespace ExaminationSystem.APIs.Controllers
         [HttpPost]
         public async Task<ActionResult<CourseToReturnDto>> AddCourse(CourseDto model)
         {
-            var course = await _courseService.AddCourseAsync(model.Name, model.CreditHour, model.InstructorId);
+            var course = await _courseService.AddCourseAsync(model.Name, model.CreditHours, model.InstructorId);
 
             if (course is null)
                 return BadRequest();

@@ -10,7 +10,6 @@ namespace ExaminationSystem.Service.ExamService
     public class ManualExamDto
     {
         public DateTime StartDate { get; set; } 
-        public int TotalGrade { get; set; }
         public ExamType ExamType { get; set; }
         public List<int> QuestionsIDs { get; set; }
         public int CourseId { get; set; }

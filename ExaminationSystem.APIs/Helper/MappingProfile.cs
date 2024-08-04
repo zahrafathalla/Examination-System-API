@@ -21,7 +21,9 @@ namespace ExaminationSystem.APIs.Helper
             CreateMap<Choice, ChoiceDto>();
 
             CreateMap<Exam, ExamToReturnDto>()
-                .ForMember(d=> d.ExamQuestions, opt=> opt.MapFrom(s=>s.ExamQuestions));
+                .ForMember(d=>d.QuestionIds , opt=>opt.MapFrom(s=>s.ExamQuestions.Select(q=>q.QuestionID)));
+
+            CreateMap<ExamDto, Exam>();
 
             CreateMap<Course, CourseToReturnDto>();
             CreateMap<CourseDto, Course>();

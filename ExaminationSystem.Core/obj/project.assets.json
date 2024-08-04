@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Core\\ExaminationSystem.Core.csproj",
+      "projectUniqueName": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Core\\ExaminationSystem.Core.csproj",
       "projectName": "ExaminationSystem.Core",
-      "projectPath": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Core\\ExaminationSystem.Core.csproj",
+      "projectPath": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Core\\ExaminationSystem.Core.csproj",
       "packagesPath": "C:\\Users\\almagd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Core\\obj\\",
+      "outputPath": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\almagd\\AppData\\Roaming\\NuGet\\NuGet.Config",

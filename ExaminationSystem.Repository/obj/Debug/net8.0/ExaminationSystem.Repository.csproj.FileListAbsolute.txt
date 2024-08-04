@@ -28,3 +28,4 @@ C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.Reposi
 C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.Repository\obj\Debug\net8.0\refint\ExaminationSystem.Repository.dll
 C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.Repository\obj\Debug\net8.0\ExaminationSystem.Repository.pdb
 C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.Repository\obj\Debug\net8.0\ref\ExaminationSystem.Repository.dll
+C:\Users\almagd\source\repos\ExaminationSystem\ExaminationSystem.Repository\obj\Debug\net8.0\ExaminationSystem.Repository.sourcelink.json

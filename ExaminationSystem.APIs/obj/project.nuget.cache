@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uBrrd2BA3tn/LWQW7+5HA8V4DL5F78fGy2lEMccqQrwU/njQhxYdT7CWuYN/zpeP+6PnMzCWX7F0/TyC6veGBQ==",
+  "dgSpecHash": "ZP4cXBbXvtgXtcwY5wV3Hs6kUgMP+WcNu9TiV0l/buGu9gcXrudRz1VT7G0NbXus2wP3ijHiTps2jc0B5GHHgA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.APIs\\ExaminationSystem.APIs.csproj",
+  "projectFilePath": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.APIs\\ExaminationSystem.APIs.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\almagd\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\almagd\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",

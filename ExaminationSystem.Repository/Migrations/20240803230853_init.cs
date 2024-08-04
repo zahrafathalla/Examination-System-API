@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ExaminationSystem.Repository.Data.Migrations
+namespace ExaminationSystem.Repository.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration
@@ -78,7 +78,7 @@ namespace ExaminationSystem.Repository.Data.Migrations
                         column: x => x.InstructorId,
                         principalTable: "instructors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -215,6 +215,33 @@ namespace ExaminationSystem.Repository.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "StudentExam",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    ExamId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentExam", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StudentExam_exams_ExamId",
+                        column: x => x.ExamId,
+                        principalTable: "exams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_StudentExam_students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_choices_QuestionID",
                 table: "choices",
@@ -264,6 +291,16 @@ namespace ExaminationSystem.Repository.Data.Migrations
                 name: "IX_StudentCourse_StudentId",
                 table: "StudentCourse",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentExam_ExamId",
+                table: "StudentExam",
+                column: "ExamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentExam_StudentId",
+                table: "StudentExam",
+                column: "StudentId");
         }
 
         /// <inheritdoc />
@@ -280,6 +317,9 @@ namespace ExaminationSystem.Repository.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "StudentCourse");
+
+            migrationBuilder.DropTable(
+                name: "StudentExam");
 
             migrationBuilder.DropTable(
                 name: "questions");

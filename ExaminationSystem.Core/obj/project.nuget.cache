@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "INlCoXjymzJcarQl599q3UHqW3Hn9Xd7u9TPWhHYVljeboe77Iy8znKRUPNttk8NI/PXlVVW2dvigsW1NNKpvQ==",
+  "dgSpecHash": "lPXJCP9Nt9/onvWyVc5oZy3xEz3QDYXXWjKw8S0un6GH/hFfHjMtuKMXUvOMnupt2I02McvgpefD3D4g7ODLsQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Core\\ExaminationSystem.Core.csproj",
+  "projectFilePath": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Core\\ExaminationSystem.Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

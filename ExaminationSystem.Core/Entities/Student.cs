@@ -10,6 +10,7 @@ namespace ExaminationSystem.Core.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public ICollection<StudentExam> StudentExams { get; set; } = new List<StudentExam>();
         public ICollection<Result> ExamResults { get; set; } = new HashSet<Result>();
         public ICollection<StudentCourse> StudentCourses { get; set; } = new HashSet<StudentCourse>();
 

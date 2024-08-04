@@ -4,16 +4,19 @@ using ExaminationSystem.Repository.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace ExaminationSystem.Repository.Data.Migrations
+namespace ExaminationSystem.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240803230853_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -276,6 +279,32 @@ namespace ExaminationSystem.Repository.Data.Migrations
                     b.ToTable("StudentCourse");
                 });
 
+            modelBuilder.Entity("ExaminationSystem.Core.Entities.StudentExam", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentExam");
+                });
+
             modelBuilder.Entity("ExaminationSystem.Core.Entities.Choice", b =>
                 {
                     b.HasOne("ExaminationSystem.Core.Entities.Question", "Question")
@@ -374,6 +403,25 @@ namespace ExaminationSystem.Repository.Data.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("ExaminationSystem.Core.Entities.StudentExam", b =>
+                {
+                    b.HasOne("ExaminationSystem.Core.Entities.Exam", "Exam")
+                        .WithMany("StudentExams")
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ExaminationSystem.Core.Entities.Student", "Student")
+                        .WithMany("StudentExams")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exam");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("ExaminationSystem.Core.Entities.Course", b =>
                 {
                     b.Navigation("Exams");
@@ -386,6 +434,8 @@ namespace ExaminationSystem.Repository.Data.Migrations
                     b.Navigation("ExamQuestions");
 
                     b.Navigation("Results");
+
+                    b.Navigation("StudentExams");
                 });
 
             modelBuilder.Entity("ExaminationSystem.Core.Entities.Instructor", b =>
@@ -405,6 +455,8 @@ namespace ExaminationSystem.Repository.Data.Migrations
                     b.Navigation("ExamResults");
 
                     b.Navigation("StudentCourses");
+
+                    b.Navigation("StudentExams");
                 });
 #pragma warning restore 612, 618
         }

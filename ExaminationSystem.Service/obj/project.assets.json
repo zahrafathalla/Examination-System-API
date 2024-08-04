@@ -2961,11 +2961,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Service\\ExaminationSystem.Service.csproj",
+      "projectUniqueName": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Service\\ExaminationSystem.Service.csproj",
       "projectName": "ExaminationSystem.Service",
-      "projectPath": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Service\\ExaminationSystem.Service.csproj",
+      "projectPath": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Service\\ExaminationSystem.Service.csproj",
       "packagesPath": "C:\\Users\\almagd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Service\\obj\\",
+      "outputPath": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Service\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\almagd\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2982,8 +2982,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Repository\\ExaminationSystem.Repository.csproj": {
-              "projectPath": "C:\\Users\\almagd\\source\\repos\\FastFood\\ExaminationSystem\\ExaminationSystem.Repository\\ExaminationSystem.Repository.csproj"
+            "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Repository\\ExaminationSystem.Repository.csproj": {
+              "projectPath": "C:\\Users\\almagd\\source\\repos\\ExaminationSystem\\ExaminationSystem.Repository\\ExaminationSystem.Repository.csproj"
             }
           }
         }

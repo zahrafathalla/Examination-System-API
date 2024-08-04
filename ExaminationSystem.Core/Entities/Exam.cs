@@ -15,6 +15,7 @@ namespace ExaminationSystem.Core.Entities
         public Course Course { get; set; }
         public int InstructorId { get; set; }
         public Instructor Instructor { get; set; }
+        public ICollection<StudentExam> StudentExams { get; set; } = new List<StudentExam>();
         public ICollection<Result> Results { get; set; } = new HashSet<Result>();
         public ICollection<ExamQuestion> ExamQuestions { get; set; } = new HashSet<ExamQuestion>();
 
