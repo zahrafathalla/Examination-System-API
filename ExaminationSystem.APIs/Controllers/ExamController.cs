@@ -54,6 +54,7 @@ namespace ExaminationSystem.APIs.Controllers
             return Ok(_mapper.Map<ExamToReturnDto>(updatedExam));
 
         }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> DeleteExam(int id)
         {
@@ -71,7 +72,7 @@ namespace ExaminationSystem.APIs.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("{instructorId}")]
         public async Task<ActionResult<IEnumerable<ExamToReturnDto>>> GetExamsByInstructorId(int instructorId)
         {
             var exams = await _examService.GetExamsByInstructorIdAsync(instructorId);

@@ -2,6 +2,7 @@
 using ExaminationSystem.APIs.Dtos;
 using ExaminationSystem.Core.Entities;
 using ExaminationSystem.Core.ServiceContracts;
+using ExaminationSystem.Service.ExamService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,7 +57,13 @@ namespace ExaminationSystem.APIs.Controllers
                 return BadRequest();
 
             return Ok(result);
+        }
 
+        [HttpGet("{instructorId}")]
+        public async Task<ActionResult<IEnumerable<CourseToReturnDto>>> GetCoursesByInstructorId(int instructorId)
+        {
+            var courses = await _courseService.GetCoursesByInstructorIdAsync(instructorId);
+            return Ok(_mapper.Map<IEnumerable<CourseToReturnDto>>(courses));
         }
 
     }

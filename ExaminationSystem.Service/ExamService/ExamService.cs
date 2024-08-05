@@ -1,6 +1,8 @@
 ﻿using ExaminationSystem.Core;
 using ExaminationSystem.Core.Entities;
 using ExaminationSystem.Core.ServiceContracts;
+using ExaminationSystem.Core.Specification.CourseSpec;
+using ExaminationSystem.Core.Specification.ExamSpec;
 using ExaminationSystem.Repository;
 
 namespace ExaminationSystem.Service.ExamService
@@ -16,7 +18,6 @@ namespace ExaminationSystem.Service.ExamService
 
         public async Task<Exam> CreateAutomaticExamAsync(DateTime startDate, ExamType examType, int numberOfQuestions,int courseId, int InstructorId)
         {
-
             var existingQuestions = await _unitOfWork.Repository<Question>().GetAllAsync();
             var questions = GetQuestions(existingQuestions, numberOfQuestions);
 
@@ -36,7 +37,6 @@ namespace ExaminationSystem.Service.ExamService
             var result = await _unitOfWork.CompleteAsync();
             if (result <= 0)
                 return null;
-
            
             await AddQuestionsToExam(exam, questions);
 
@@ -44,10 +44,9 @@ namespace ExaminationSystem.Service.ExamService
         }
         public async Task<Exam> CreateManualExamAsync(DateTime startDate, ExamType examType, List<int> questionIds,int courseId, int InstructorId)
         {
-            var questions = await _unitOfWork.Repository<Question>().Get(q => questionIds.Contains(q.Id));
+            var questions = await _unitOfWork.Repository<Question>().GetAsync(q => questionIds.Contains(q.Id));
 
             var totalGrade = questions.Sum(q => q.Grade);
-
 
             var exam = new Exam()
             {
@@ -55,8 +54,7 @@ namespace ExaminationSystem.Service.ExamService
                 TotalGrade = totalGrade,
                 ExamType = examType,
                 CourseId= courseId,
-                InstructorId = InstructorId
-                
+                InstructorId = InstructorId              
             };
 
             await _unitOfWork.Repository<Exam>().AddAsync(exam);
@@ -73,7 +71,9 @@ namespace ExaminationSystem.Service.ExamService
         public async Task<Exam> UpdateExamAsync(int id, Exam exam)
         {
             var examRepo = _unitOfWork.Repository<Exam>();
-            var existingExam = await examRepo.GetByIdAsync(id);
+            var spec = new ExamSpecification(id);
+
+            var existingExam = await examRepo.GetByIdWithSpecificationAsync(spec);
 
             if (existingExam == null) return null;
 
@@ -82,7 +82,6 @@ namespace ExaminationSystem.Service.ExamService
 
             examRepo.Update(existingExam);
             var result = await _unitOfWork.CompleteAsync();
-
             if (result <= 0) return null;
 
             return existingExam;
@@ -99,12 +98,16 @@ namespace ExaminationSystem.Service.ExamService
             var result = await _unitOfWork.CompleteAsync();
             return result > 0;
         }
-        public Task<IEnumerable<Exam>> GetExamsByInstructorIdAsync(int instructorId)
+        public async Task<IEnumerable<Exam>> GetExamsByInstructorIdAsync(int instructorId)
         {
-            var exams = _unitOfWork.Repository<Exam>().Get(e=>e.InstructorId==instructorId);
+            var spec = new ExamByInstructorIdWithInstructorSpecification(instructorId);
+
+            var exams = await _unitOfWork.Repository<Exam>().GetAllWithSpecificationAsync(spec);
+
             return exams;
         }
-
+           
+            
 
         public async Task<bool> AssignToExams(int studentId, int examId)
         {
@@ -114,14 +117,14 @@ namespace ExaminationSystem.Service.ExamService
             if (exam == null) return false;
 
             //check that Instructor assigned a student to a course first, 
-            var studentCourse = await _unitOfWork.Repository<StudentCourse>().Get(sc => sc.StudentId == studentId && sc.CourseId == exam.CourseId);
+            var studentCourse = await _unitOfWork.Repository<StudentCourse>().GetAsync(sc => sc.StudentId == studentId && sc.CourseId == exam.CourseId);
             if (studentCourse.Count() == 0) return false;
 
 
             //Student can take many quiz exams, but he can take only one final exam
             if (exam.ExamType == ExamType.Final)
             {
-                var finalExams = await studentExamRepo.Get(se => se.StudentId == studentId && se.Exam.ExamType == ExamType.Final);
+                var finalExams = await studentExamRepo.GetAsync(se => se.StudentId == studentId && se.Exam.ExamType == ExamType.Final);
                 if(finalExams.Count() > 1 ) return false;
             }
 
@@ -145,6 +148,7 @@ namespace ExaminationSystem.Service.ExamService
                     ExamID = exam.Id
                 });
             }
+            await _unitOfWork.CompleteAsync();
         }
         private IEnumerable<Question> GetQuestions(IEnumerable<Question> questions, int numberOfQuestions)
         {

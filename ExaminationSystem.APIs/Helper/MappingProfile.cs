@@ -26,11 +26,11 @@ namespace ExaminationSystem.APIs.Helper
             CreateMap<ExamDto, Exam>();
 
             CreateMap<Course, CourseToReturnDto>();
+
             CreateMap<CourseDto, Course>();
 
             CreateMap<Instructor, InstructorDto>()
                 .ForMember(d=>d.FullName ,opt=>opt.MapFrom(s=> $"{s.FirstName} {s.LastName}"));
-
 
         }
     }

@@ -79,7 +79,7 @@ namespace ExaminationSystem.Service.QuestionService
             if (question == null) return false;
 
             var choiceRepo = _unitOfWork.Repository<Choice>();
-            var choices = await choiceRepo.Get(c => c.QuestionID == id);
+            var choices = await choiceRepo.GetAsync(c => c.QuestionID == id);
 
             foreach (var choice in choices)
                 choiceRepo.Delete(choice);

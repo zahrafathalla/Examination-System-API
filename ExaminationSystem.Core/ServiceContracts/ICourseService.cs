@@ -13,5 +13,6 @@ namespace ExaminationSystem.Core.ServiceContracts
         Task<Course> EditCourseAsync(int id , Course course);
         Task<bool> DeleteCourseAsync(int courseId);
         Task<bool> EnrollStudentAsync(int studentId, int courseId);
+        Task<IEnumerable<Course>> GetCoursesByInstructorIdAsync(int instructorId);
     }
 }
