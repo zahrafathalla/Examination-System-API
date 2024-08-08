@@ -1,7 +1,5 @@
 ﻿using ExaminationSystem.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +9,8 @@ namespace ExaminationSystem.Core.Specification
     public class BaseSpecification<T> : ISpecification<T> where T : BaseEntity
     {
         public Expression<Func<T, bool>> Criteria {  get; set; }
-        public List<Expression<Func<T, object>>> Include { get; set; } = new List<Expression<Func<T, object>>>();
-
+        //public List<Expression<Func<T, object>>> Includes { get; set; } = new List<Expression<Func<T, object>>>();
+        public List<Func<IQueryable<T>, IIncludableQueryable<T, object>>> Includes { get; set; } = new List<Func<IQueryable<T>, IIncludableQueryable<T, object>>>();
         public BaseSpecification()
         {
             
@@ -22,5 +20,6 @@ namespace ExaminationSystem.Core.Specification
         {
             Criteria = criteria;
         }
+
     }
 }

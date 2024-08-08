@@ -9,6 +9,7 @@ using ExaminationSystem.Repository.GenericRepository;
 using ExaminationSystem.Service.CourseService;
 using ExaminationSystem.Service.ExamService;
 using ExaminationSystem.Service.QuestionService;
+using ExaminationSystem.Service.ResultService;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -43,6 +44,8 @@ namespace ExaminationSystem.APIs
             builder.Services.AddScoped(typeof(IExamService), typeof(ExamService));
             builder.Services.AddScoped(typeof(IQuestionService), typeof(QuestionService));
             builder.Services.AddScoped(typeof(ICourseService), typeof(CourseService));
+            builder.Services.AddScoped(typeof(IResultService), typeof(ResultService));
+
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 

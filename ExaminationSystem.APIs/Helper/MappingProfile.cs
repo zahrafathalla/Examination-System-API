@@ -20,9 +20,6 @@ namespace ExaminationSystem.APIs.Helper
 
             CreateMap<Choice, ChoiceDto>();
 
-            CreateMap<Exam, ExamToReturnDto>()
-                .ForMember(d=>d.QuestionIds , opt=>opt.MapFrom(s=>s.ExamQuestions.Select(q=>q.QuestionID)));
-
             CreateMap<ExamDto, Exam>();
 
             CreateMap<Course, CourseToReturnDto>();
@@ -32,6 +29,14 @@ namespace ExaminationSystem.APIs.Helper
             CreateMap<Instructor, InstructorDto>()
                 .ForMember(d=>d.FullName ,opt=>opt.MapFrom(s=> $"{s.FirstName} {s.LastName}"));
 
+            CreateMap<Exam, ExamToReturnDto>()
+                .ForMember(d => d.Questions, opt => opt.MapFrom(s => s.ExamQuestions.Select(eq => eq.Question)));
+
+            CreateMap<Question, QuestionForExamToReturnDto>()
+                 .ForMember(d => d.QuestionsText, opt => opt.MapFrom(s=>s.Text))
+                 .ForMember(d => d.ChoicesText, opt => opt.MapFrom(s=>s.Choices.Select(c=>c.Text)));
+
+            CreateMap<Result, ResultToReturnDto>();
         }
     }
 }

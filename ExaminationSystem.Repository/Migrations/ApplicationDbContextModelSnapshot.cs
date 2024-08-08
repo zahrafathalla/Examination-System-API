@@ -122,6 +122,9 @@ namespace ExaminationSystem.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ExamID")
                         .HasColumnType("int");
 
@@ -288,6 +291,9 @@ namespace ExaminationSystem.Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSubmitted")
                         .HasColumnType("bit");
 
                     b.Property<int>("StudentId")

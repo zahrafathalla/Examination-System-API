@@ -49,7 +49,7 @@ namespace ExaminationSystem.APIs.Controllers
             return Ok(await _courseService.DeleteCourseAsync(id));
         }
 
-        [HttpPost("student")]
+        [HttpPost("Enroll/{studentId}")]
         public async Task<ActionResult<bool>> EnrollStudent(int studentId, int courseId)
         {
             var result = await _courseService.EnrollStudentAsync(studentId, courseId);

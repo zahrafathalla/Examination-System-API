@@ -16,9 +16,11 @@ namespace ExaminationSystem.Repository
             var query = inputQuery; //_dbcontext.set<T>()
 
             if (spec.Criteria != null)
-                query = query.Where(spec.Criteria); 
+                query = query.Where(spec.Criteria);
 
-            query = spec.Include.Aggregate(query, (currentQuery, icludeExpression) => currentQuery.Include(icludeExpression));
+            query = spec.Includes.Aggregate(query, (current, include) => include(current));
+            //query = spec.IncludeStrings.Aggregate(query, (current, include) => current.Include(include));
+
 
             return query;
         }

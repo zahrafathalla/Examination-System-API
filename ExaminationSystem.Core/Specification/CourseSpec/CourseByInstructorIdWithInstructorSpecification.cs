@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,8 @@ namespace ExaminationSystem.Core.Specification.CourseSpec
         public CourseByInstructorIdWithInstructorSpecification(int instructorId)
         : base(c => c.InstructorId == instructorId)
         {
-            Include.Add(c => c.Instructor);
+            Includes.Add(c => c.Include(c=>c.Instructor));
+            
         }
     }
 }

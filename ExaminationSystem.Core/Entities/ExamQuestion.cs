@@ -12,5 +12,7 @@ namespace ExaminationSystem.Core.Entities
         public Exam Exam { get; set; } 
         public int QuestionID { get; set; }
         public Question Question { get; set; }
+        public string? Answer { get; set; }
+
     }
 }

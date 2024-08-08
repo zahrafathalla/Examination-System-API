@@ -1072,6 +1072,10 @@
       "ExaminationSystem.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.7",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.7"
+        },
         "compile": {
           "bin/placeholder/ExaminationSystem.Core.dll": {}
         },

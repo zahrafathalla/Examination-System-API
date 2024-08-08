@@ -5,6 +5,7 @@ using ExaminationSystem.Core.ServiceContracts;
 using ExaminationSystem.Service.CourseService;
 using ExaminationSystem.Service.ExamService;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystem.APIs.Controllers
@@ -27,7 +28,7 @@ namespace ExaminationSystem.APIs.Controllers
         public async Task<ActionResult<ExamToReturnDto>> AddExamManually(ManualExamDto model)
         {
 
-            var addedExam = await _examService.CreateManualExamAsync(model.StartDate, model.ExamType, model.QuestionsIDs, model.CourseId, model.InstructorId); 
+            var addedExam = await _examService.CreateManualExamAsync(model.StartDate, model.ExamType, model.QuestionsIDs, model.CourseId, model.InstructorId);
             if (addedExam is null)
                 return BadRequest();
 
@@ -37,7 +38,7 @@ namespace ExaminationSystem.APIs.Controllers
         public async Task<ActionResult<ExamToReturnDto>> AddExamAutomatically(AutomaticExamDto model)
         {
 
-            var addedExam = await _examService.CreateAutomaticExamAsync(model.StartDate, model.ExamType, model.numberOfQuestions, model.CourseId, model.InstructorId); 
+            var addedExam = await _examService.CreateAutomaticExamAsync(model.StartDate, model.ExamType, model.numberOfQuestions, model.CourseId, model.InstructorId);
             if (addedExam is null)
                 return BadRequest();
 
@@ -61,10 +62,10 @@ namespace ExaminationSystem.APIs.Controllers
             return Ok(await _examService.DeleteExamAsync(id));
         }
 
-        [HttpPost("student")]
-        public async Task<ActionResult<bool>> AssignExamToStudent(int studentId, int examId)
+        [HttpPost("Assign")]
+        public async Task<ActionResult<bool>> AssignExamToStudent(int examId, int studentId)
         {
-            var result = await _examService.AssignToExams(studentId, examId);
+            var result = await _examService.AssignToExams(examId, studentId);
             if (!result)
                 return BadRequest();
 
@@ -78,6 +79,26 @@ namespace ExaminationSystem.APIs.Controllers
             var exams = await _examService.GetExamsByInstructorIdAsync(instructorId);
             return Ok(_mapper.Map<IEnumerable<ExamToReturnDto>>(exams));
         }
+
+        [HttpGet("TakeExam/{examId}")]
+        public async Task<ActionResult<ExamToReturnDto>> TakeExam(int examId, int studentId)
+        {
+            var exam = await _examService.TakeExamAsync(examId,studentId);
+            if (exam == null)
+                return NotFound();
+            return Ok(_mapper.Map<ExamToReturnDto>(exam));
+        }
+
+        [HttpPost("submit/{examId}")]
+        public async Task<ActionResult<ResultToReturnDto>> SubmitExam(int examId, int studentId, List<string> answers)
+        {
+            var result = await _examService.SubmitExamAsync(examId, studentId,answers);
+
+            if(result == null) return BadRequest();
+
+            return Ok(_mapper.Map<ResultToReturnDto>(result));
+        }
+
 
     }
 }

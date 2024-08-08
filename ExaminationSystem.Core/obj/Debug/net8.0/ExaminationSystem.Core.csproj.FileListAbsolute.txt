@@ -21,3 +21,4 @@ C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.Core\o
 C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.Core\obj\Debug\net8.0\ExaminationSystem.Core.pdb
 C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.Core\obj\Debug\net8.0\ref\ExaminationSystem.Core.dll
 C:\Users\almagd\source\repos\ExaminationSystem\ExaminationSystem.Core\obj\Debug\net8.0\ExaminationSystem.Core.sourcelink.json
+C:\Users\almagd\source\repos\ExaminationSystem\ExaminationSystem.Core\obj\Debug\net8.0\ExaminationSystem.Core.csproj.AssemblyReference.cache

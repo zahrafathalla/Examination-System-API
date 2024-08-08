@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,9 @@ namespace ExaminationSystem.Core.Specification.ExamSpec
         public ExamByInstructorIdWithInstructorSpecification(int instructorId)
             :base(e=>e.InstructorId == instructorId)
         {
-            Include.Add(e=>e.ExamQuestions);
+            Includes.Add(e => e.Include(e => e.ExamQuestions)
+                               .ThenInclude(eq => eq.Question)
+                               .ThenInclude(q => q.Choices));
         }
     }
 }

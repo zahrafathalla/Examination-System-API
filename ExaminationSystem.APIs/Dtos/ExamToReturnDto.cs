@@ -8,6 +8,7 @@ namespace ExaminationSystem.APIs.Dtos
         public DateTime StartDate { get; set; }
         public int TotalGrade { get; set; }
         public string ExamType { get; set; }
-        public List<int> QuestionIds { get; set; }
+        public List<QuestionForExamToReturnDto> Questions { get; set; }
+
     }
 }

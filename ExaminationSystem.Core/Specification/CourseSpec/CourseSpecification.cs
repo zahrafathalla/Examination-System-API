@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystem.Core.Specification.CourseSpec
 {
@@ -7,7 +8,7 @@ namespace ExaminationSystem.Core.Specification.CourseSpec
         public CourseSpecification(int id)
             : base(c => c.Id == id)
         {
-            Include.Add(c => c.Instructor);
+            Includes.Add(c => c.Include(c=>c.Instructor));
         }
 
 
