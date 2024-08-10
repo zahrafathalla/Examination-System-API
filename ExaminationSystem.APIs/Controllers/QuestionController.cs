@@ -2,11 +2,13 @@
 using ExaminationSystem.APIs.Dtos;
 using ExaminationSystem.Core.Entities;
 using ExaminationSystem.Core.ServiceContracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystem.APIs.Controllers
 {
+    [Authorize(Roles = "instructor")]
     public class QuestionController : BaseController
     {
         private readonly IQuestionService _questionService;

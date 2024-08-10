@@ -3,12 +3,13 @@ using ExaminationSystem.APIs.Dtos;
 using ExaminationSystem.Core.Entities;
 using ExaminationSystem.Core.ServiceContracts;
 using ExaminationSystem.Service.ExamService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystem.APIs.Controllers
 {
-
+    [Authorize(Roles = "instructor")]
     public class CourseController : BaseController
     {
         private readonly ICourseService _courseService;

@@ -10,7 +10,7 @@ namespace ExaminationSystem.Core.ServiceContracts
     public interface IResultService
     {
         Task<Result> EvaluateExam(int examId, int studentId);
-        Task<Result> ViewResults(int resultId);
+        Task<IEnumerable< Result>> ViewResults();
 
     }
 }

@@ -2,6 +2,7 @@
 using ExaminationSystem.APIs.Dtos;
 using ExaminationSystem.Core.Entities;
 using ExaminationSystem.Core.ServiceContracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,11 +32,13 @@ namespace ExaminationSystem.APIs.Controllers
         //    return Ok(_mapper.Map<ResultToReturnDto>(result));
         //}
 
-        [HttpGet("{resultId}")]
-        public async Task<ActionResult<ResultToReturnDto>> ViewResults(int resultId)
+        [Authorize(Roles = "student")]
+        [HttpGet]
+
+        public async Task<ActionResult<IEnumerable<ResultToReturnDto>>> ViewResults()
         {
-            var result = await _resultService.ViewResults(resultId);
-            return Ok(_mapper.Map<ResultToReturnDto>(result));
+            var result = await _resultService.ViewResults();
+            return Ok(_mapper.Map<IEnumerable<ResultToReturnDto>>(result));
 
         }
     }

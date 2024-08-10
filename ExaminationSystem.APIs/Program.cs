@@ -1,23 +1,33 @@
 
+using ExaminationSystem.API.Extensions;
+using ExaminationSystem.APIs.Extensions;
 using ExaminationSystem.APIs.Helper;
 using ExaminationSystem.Core;
 using ExaminationSystem.Core.Contracts;
+using ExaminationSystem.Core.Entities.Identity;
 using ExaminationSystem.Core.ServiceContracts;
 using ExaminationSystem.Repository;
+using ExaminationSystem.Repository._Identity;
 using ExaminationSystem.Repository.Data;
 using ExaminationSystem.Repository.GenericRepository;
+using ExaminationSystem.Service.AuthService;
 using ExaminationSystem.Service.CourseService;
 using ExaminationSystem.Service.ExamService;
 using ExaminationSystem.Service.QuestionService;
 using ExaminationSystem.Service.ResultService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace ExaminationSystem.APIs
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -38,18 +48,57 @@ namespace ExaminationSystem.APIs
                 .EnableSensitiveDataLogging(); ;
             });
 
-            builder.Services.AddScoped(typeof(IunitOfWork), typeof(UnitOfWork));
+            builder.Services.AddDbContext<ApplicationIdentityDBContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
+            });
 
-            builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
-            builder.Services.AddScoped(typeof(IExamService), typeof(ExamService));
-            builder.Services.AddScoped(typeof(IQuestionService), typeof(QuestionService));
-            builder.Services.AddScoped(typeof(ICourseService), typeof(CourseService));
-            builder.Services.AddScoped(typeof(IResultService), typeof(ResultService));
+            builder.Services.AddApplicationService();
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(option =>
+            {
+                option.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["JWT:ValidAudience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:AuthKey"])),
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                };
+            });
 
+            builder.Services.AddSwaggerDocumentation();
 
-            builder.Services.AddAutoMapper(typeof(MappingProfile));
-
+   
             var app = builder.Build();
+
+            #region Update DataBase
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var _roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            var _loggerFactory = services.GetRequiredService<ILoggerFactory>();
+            var _dbcontext = services.GetRequiredService<ApplicationDbContext>();
+            var _identityDBContext = services.GetRequiredService<ApplicationIdentityDBContext>();
+            try
+            {
+                await _dbcontext.Database.MigrateAsync();
+                await _identityDBContext.Database.MigrateAsync();
+
+                await ApplicationIdentityContextSeed.SeedRoleAsync(_roleManager);
+            }
+            catch (Exception ex)
+            {
+
+                var logger = _loggerFactory.CreateLogger<Program>();
+                logger.LogError(ex, "error during apply migrations");
+            } 
+            #endregion
+
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -60,6 +109,7 @@ namespace ExaminationSystem.APIs
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

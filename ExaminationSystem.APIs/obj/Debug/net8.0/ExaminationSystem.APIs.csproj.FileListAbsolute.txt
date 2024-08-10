@@ -307,3 +307,4 @@ C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.APIs\o
 C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.APIs\obj\Debug\net8.0\ExaminationSystem.APIs.genruntimeconfig.cache
 C:\Users\almagd\source\repos\FastFood\ExaminationSystem\ExaminationSystem.APIs\obj\Debug\net8.0\ref\ExaminationSystem.APIs.dll
 C:\Users\almagd\source\repos\ExaminationSystem\ExaminationSystem.APIs\obj\Debug\net8.0\ExaminationSystem.APIs.sourcelink.json
+C:\Users\almagd\source\repos\ExaminationSystem\ExaminationSystem.APIs\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

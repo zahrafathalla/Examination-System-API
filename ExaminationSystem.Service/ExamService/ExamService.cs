@@ -6,6 +6,7 @@ using ExaminationSystem.Core.Specification.ExamQuestionSpec;
 using ExaminationSystem.Core.Specification.ExamSpec;
 using ExaminationSystem.Core.Specification.QuestionSpec;
 using ExaminationSystem.Repository;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExaminationSystem.Service.ExamService
@@ -220,6 +221,20 @@ namespace ExaminationSystem.Service.ExamService
             allQuestions.AddRange(GetRandomQuestions(questions, QuestionLevel.Simple, simpleQuestions));
             allQuestions.AddRange(GetRandomQuestions(questions, QuestionLevel.Medium, mediumQuestions));
             allQuestions.AddRange(GetRandomQuestions(questions, QuestionLevel.Hard, hardQuestions));
+
+            int remainingQuestionsNum = numberOfQuestions - allQuestions.Count;
+
+            List<Question> remainingQuestions = new List<Question>();
+            if (remainingQuestionsNum > 0)
+            {
+                var random = new Random();
+                remainingQuestions = questions
+                    .Where(q => !allQuestions.Contains(q)) 
+                    .OrderBy(q=>random.Next())
+                    .Take(remainingQuestionsNum)
+                    .ToList();
+            }
+            allQuestions.AddRange(remainingQuestions);
 
             return allQuestions;
         }

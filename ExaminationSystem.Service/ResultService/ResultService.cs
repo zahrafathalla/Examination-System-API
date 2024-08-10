@@ -45,12 +45,9 @@ namespace ExaminationSystem.Service.ResultService
 
         }
 
-        public async Task<Result> ViewResults(int resultId)
+        public async Task<IEnumerable<Result>> ViewResults()
         {
-            var result = await _unitOfWork.Repository<Result>().GetByIdAsync(resultId);
-
-            if (result == null)
-                return null;
+            var result = await _unitOfWork.Repository<Result>().GetAllAsync();
 
             return result;
 
